@@ -92,11 +92,11 @@ public class Main {
 						dataReserva.toString(), "Pendente", null);
 				solicitacaoDAO.criarSolicitacao(solicitacao);
 				break;
-				
+
 			case 6: // Listar Solicitações Pendentes
 				System.out.println("\nSolicitações pendentes:");
 				if (solicitacoesPendentes.isEmpty()) {
-					System.out.println("Não há solicitações pendentes para avaliação.");
+					System.out.println("Não há solicitações pendentes.");
 				} else {
 					for (Solicitacao s : solicitacoesPendentes) {
 						System.out.println(
@@ -110,27 +110,27 @@ public class Main {
 				if (solicitacoesPendentes.isEmpty()) {
 					System.out.println("Não há solicitações pendentes para avaliação.");
 				} else {
-				System.out.print("\nID do usuário que está avaliando: ");
-				int idAvaliador = scanner.nextInt();
-				scanner.nextLine(); // Limpar buffer
+					System.out.print("\nID do usuário que está avaliando: ");
+					int idAvaliador = scanner.nextInt();
+					scanner.nextLine(); // Limpar buffer
 
-				// Verificar se o usuário é um gestor
-				Usuario avaliador = usuarioDAO.buscarUsuarioPorId(idAvaliador);
-				if (avaliador == null || !avaliador.getTipoUsuario().equalsIgnoreCase("Gestor")) {
-					System.out.println("Erro: Apenas gestores podem avaliar solicitações.");
+					// Verificar se o usuário é um gestor
+					Usuario avaliador = usuarioDAO.buscarUsuarioPorId(idAvaliador);
+					if (avaliador == null || !avaliador.getTipoUsuario().equalsIgnoreCase("Gestor")) {
+						System.out.println("Erro: Apenas gestores podem avaliar solicitações.");
+						break;
+					}
+					System.out.print("\nID da solicitação a avaliar: ");
+					int idSolicitacao = scanner.nextInt();
+					scanner.nextLine(); // Limpar buffer
+					System.out.print("Aprovar ou Rejeitar? (A/R): ");
+					String status = scanner.nextLine();
+					status = status.equalsIgnoreCase("A") ? "Aprovado" : "Rejeitado";
+					System.out.print("Justificativa (opcional): ");
+					String justificativa = scanner.nextLine();
+					solicitacaoDAO.avaliarSolicitacao(idSolicitacao, status, justificativa);
 					break;
-				}
-				System.out.print("\nID da solicitação a avaliar: ");
-				int idSolicitacao = scanner.nextInt();
-				scanner.nextLine(); // Limpar buffer
-				System.out.print("Aprovar ou Rejeitar? (A/R): ");
-				String status = scanner.nextLine();
-				status = status.equalsIgnoreCase("A") ? "Aprovado" : "Rejeitado";
-				System.out.print("Justificativa (opcional): ");
-				String justificativa = scanner.nextLine();
-				solicitacaoDAO.avaliarSolicitacao(idSolicitacao, status, justificativa);
-				break;
-				
+
 				}
 			case 0:
 				System.out.println("Saindo...");
