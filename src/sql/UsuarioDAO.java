@@ -10,6 +10,23 @@ public class UsuarioDAO {
     public UsuarioDAO() {
         this.connection = DatabaseConnection.getConnection();
     }
+    public Usuario buscarUsuarioPorId(int id) {
+        String sql = "SELECT * FROM usuarios WHERE id = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return new Usuario(
+                    rs.getInt("id"),
+                    rs.getString("nome"),
+                    rs.getString("tipo_usuario")
+                );
+            }
+        } catch (SQLException e) {
+            System.out.println("Erro ao buscar usuário: " + e.getMessage());
+        }
+        return null;
+    }
 
     // Método para cadastrar um usuário
     public void cadastrarUsuario(Usuario usuario) {
