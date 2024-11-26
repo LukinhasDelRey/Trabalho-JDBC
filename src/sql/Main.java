@@ -12,6 +12,7 @@ public class Main {
 		EspacoDAO espacoDAO = new EspacoDAO();
 		UsuarioDAO usuarioDAO = new UsuarioDAO();
 		SolicitacaoDAO solicitacaoDAO = new SolicitacaoDAO();
+		List<Solicitacao> solicitacoesPendentes = solicitacaoDAO.listarSolicitacoesPendentes();
 
 		Scanner scanner = new Scanner(System.in);
 		int opcao;
@@ -94,7 +95,6 @@ public class Main {
 				
 			case 6: // Listar Solicitações Pendentes
 				System.out.println("\nSolicitações pendentes:");
-				List<Solicitacao> solicitacoesPendentes = solicitacaoDAO.listarSolicitacoesPendentes();
 				if (solicitacoesPendentes.isEmpty()) {
 					System.out.println("Não há solicitações pendentes para avaliação.");
 				} else {
@@ -107,6 +107,9 @@ public class Main {
 				break;
 
 			case 7: // Avaliar Solicitação
+				if (solicitacoesPendentes.isEmpty()) {
+					System.out.println("Não há solicitações pendentes para avaliação.");
+				} else {
 				System.out.print("\nID do usuário que está avaliando: ");
 				int idAvaliador = scanner.nextInt();
 				scanner.nextLine(); // Limpar buffer
@@ -127,7 +130,8 @@ public class Main {
 				String justificativa = scanner.nextLine();
 				solicitacaoDAO.avaliarSolicitacao(idSolicitacao, status, justificativa);
 				break;
-
+				
+				}
 			case 0:
 				System.out.println("Saindo...");
 				break;
