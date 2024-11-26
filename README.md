@@ -1,8 +1,7 @@
 ### Equipe:
 
 - Camile Lourival Ferreira Santos
-- Lucas Nascimento
-- Angelo Peluso
+- Lucas Nascimento Angelo Peluso
 - Gilmar Gabriel de Moura Carvalho
 - Matheus Nascimento Angelo De Souza
 - Ícaro Matos Silva
