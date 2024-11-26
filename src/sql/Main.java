@@ -1,8 +1,10 @@
 package sql;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
-
 public class Main {
 
 	 public static void main(String[] args) {
@@ -33,6 +35,9 @@ public class Main {
 	                    String nomeUsuario = scanner.nextLine();
 	                    System.out.print("Tipo de usuário (Solicitante/Gestor): ");
 	                    String tipoUsuario = scanner.nextLine();
+	                    System.out.print("ID do usuário: ");
+	                    
+	                    
 	                    Usuario usuario = new Usuario(0, nomeUsuario, tipoUsuario);
 	                    usuarioDAO.cadastrarUsuario(usuario);
 	                    break;
@@ -75,12 +80,17 @@ public class Main {
 	                    int idEspaco = scanner.nextInt();
 	                    scanner.nextLine(); // Limpar buffer
 	                    System.out.print("Data da reserva (YYYY-MM-DD HH:MM:SS): ");
-	                    String dataReserva = scanner.nextLine();
-	                    String dataSolicitacao = java.time.LocalDateTime.now().toString(); // Data atual
-	                    Solicitacao solicitacao = new Solicitacao(0, idUsuario, idEspaco, dataSolicitacao, dataReserva, "Pendente", null);
+	                    String dataReservaStr = scanner.nextLine();
+	                    
+	                    // Converter string para Timestamp
+	                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+	                    LocalDateTime localDateTime = LocalDateTime.parse(dataReservaStr, formatter);
+	                    Timestamp dataReserva = Timestamp.valueOf(localDateTime);
+	                    
+	                    String dataSolicitacao = java.time.LocalDateTime.now().format(formatter); // Data atual no formato correto
+	                    Solicitacao solicitacao = new Solicitacao(0, idUsuario, idEspaco, dataSolicitacao, dataReserva.toString(), "Pendente", null);
 	                    solicitacaoDAO.criarSolicitacao(solicitacao);
 	                    break;
-
 	                case 6: // Listar Solicitações Pendentes
 	                    System.out.println("\nSolicitações pendentes:");
 	                    List<Solicitacao> solicitacoesPendentes = solicitacaoDAO.listarSolicitacoesPendentes();

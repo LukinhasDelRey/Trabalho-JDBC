@@ -15,8 +15,13 @@ public class SolicitacaoDAO {
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, solicitacao.getIdUsuario());
             stmt.setInt(2, solicitacao.getIdEspaco());
-            stmt.setString(3, solicitacao.getDataSolicitacao());
-            stmt.setString(4, solicitacao.getDataReserva());
+            
+            // Converter strings para Timestamp
+            Timestamp dataSolicitacao = Timestamp.valueOf(solicitacao.getDataSolicitacao());
+            Timestamp dataReserva = Timestamp.valueOf(solicitacao.getDataReserva());
+            
+            stmt.setTimestamp(3, dataSolicitacao);
+            stmt.setTimestamp(4, dataReserva);
             stmt.setString(5, solicitacao.getStatus());
             stmt.executeUpdate();
             System.out.println("Solicitação criada com sucesso!");
@@ -24,7 +29,6 @@ public class SolicitacaoDAO {
             System.out.println("Erro ao criar solicitação: " + e.getMessage());
         }
     }
-
     // Método para listar solicitações pendentes
     public List<Solicitacao> listarSolicitacoesPendentes() {
         List<Solicitacao> solicitacoes = new ArrayList<>();
