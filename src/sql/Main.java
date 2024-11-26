@@ -34,10 +34,7 @@ public class Main {
 	                    System.out.print("Nome do usuário: ");
 	                    String nomeUsuario = scanner.nextLine();
 	                    System.out.print("Tipo de usuário (Solicitante/Gestor): ");
-	                    String tipoUsuario = scanner.nextLine();
-	                    System.out.print("ID do usuário: ");
-	                    
-	                    
+	                    String tipoUsuario = scanner.nextLine();	                   
 	                    Usuario usuario = new Usuario(0, nomeUsuario, tipoUsuario);
 	                    usuarioDAO.cadastrarUsuario(usuario);
 	                    break;
