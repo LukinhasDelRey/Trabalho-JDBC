@@ -29,7 +29,7 @@ public class EspacoDAO {
 
     // Método para listar todos os espaços
     public List<Espaco> listarEspacos() {
-        List<Espaco> espacos = new ArrayList<>();
+    	List<Espaco> espacos = new ArrayList<>();
         String sql = "SELECT * FROM espacos";
         try (Statement stmt = connection.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {

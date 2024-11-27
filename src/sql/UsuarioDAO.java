@@ -27,7 +27,7 @@ public class UsuarioDAO {
         }
         return null;
     }
-
+    
     // Método para cadastrar um usuário
     public void cadastrarUsuario(Usuario usuario) {
         String sql = "INSERT INTO usuarios (nome, tipo_usuario) VALUES (?, ?)";
