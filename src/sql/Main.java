@@ -94,19 +94,20 @@ public class Main {
 				break;
 
 			case 6: // Listar Solicitações Pendentes
-				System.out.println("\nSolicitações pendentes:");
-				if (solicitacoesPendentes.isEmpty()) {
-					System.out.println("Não há solicitações pendentes.");
-				} else {
-					for (Solicitacao s : solicitacoesPendentes) {
-						System.out.println(
-								"ID: " + s.getId() + " | Usuário: " + s.getIdUsuario() + " | Espaço: " + s.getIdEspaco()
-										+ " | Data Reserva: " + s.getDataReserva() + " | Status: " + s.getStatus());
-					}
-				}
-				break;
-
+			    System.out.println("\nSolicitações pendentes:");
+			    solicitacoesPendentes = solicitacaoDAO.listarSolicitacoesPendentes(); // Recarrega a lista atualizada
+			    if (solicitacoesPendentes.isEmpty()) {
+			        System.out.println("Não há solicitações pendentes.");
+			    } else {
+			        for (Solicitacao s : solicitacoesPendentes) {
+			            System.out.println(
+			                "ID: " + s.getId() + " | Usuário: " + s.getIdUsuario() + " | Espaço: " + s.getIdEspaco()
+			                + " | Data Reserva: " + s.getDataReserva() + " | Status: " + s.getStatus());
+			        }
+			    }
+			    break;
 			case 7: // Avaliar Solicitação
+				solicitacoesPendentes = solicitacaoDAO.listarSolicitacoesPendentes(); // Recarrega a lista atualizada
 				if (solicitacoesPendentes.isEmpty()) {
 					System.out.println("Não há solicitações pendentes para avaliação.");
 				} else {
